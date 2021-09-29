@@ -27,17 +27,13 @@ let successMsg = (input) => {
     formControl.className += ' success';
 }
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-})
-
 let inputValue = (e) => {
     let error = false;
     if(customerName.value == "") {
         errorMsg(customerName, '*This field is required');
         error = true;
     } else if(!textLength.test(customerName.value)) {
-        errorMsg(customerName, 'Enter valid item');
+        errorMsg(customerName, 'Enter valid name');
         error = true;
     } else {
         successMsg(customerName);
@@ -47,7 +43,7 @@ let inputValue = (e) => {
         errorMsg(course, '*This field is required');
         error = true;
     } else if(!textLength.test(course.value)) {
-        errorMsg(course, 'Enter valid item');
+        errorMsg(course, 'Enter valid course');
         error = true;
     } else {
         successMsg(course);
@@ -57,7 +53,7 @@ let inputValue = (e) => {
         errorMsg(author, '*This field is required');
         error = true;
     } else if(!textLength.test(author.value)) {
-        errorMsg(author, 'Enter valid item');
+        errorMsg(author, 'Enter valid author name');
         error = true;
     } else {
         successMsg(author);
@@ -85,3 +81,94 @@ author.addEventListener('focusout', () => {
     }
     inputValue();
 })
+
+//focus function
+customerName.addEventListener('focus', () => { 
+    customerName.nextElementSibling.className = 'none';
+})
+
+course.addEventListener('focus', () => { 
+    course.nextElementSibling.className = 'none';
+})
+
+author.addEventListener('focus', () => { 
+    author.nextElementSibling.className = 'none';
+})
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if(!inputValue()) {
+        let customer = localStorage.getItem("customer");
+        if(customer == null) {
+            customerObj = [];
+        } else {
+            customerObj = JSON.parse(customer);
+        }
+        let myObj = {
+            nameTitle: customerName.value,
+            courseTitle: course.value,
+            authorTitle: author.value
+        }
+        customerObj.push(myObj);
+        localStorage.setItem("customer", JSON.stringify(customerObj));
+        customerName.value = "";
+        course.value = "";
+        author.value = "";
+    }
+    displayCustomerInfo();
+})
+
+//display customer details after validation
+let displayCustomerInfo = () => {
+    let customer = localStorage.getItem("customer");
+    if(customer == null) {
+        customerObj = [];
+    } else {
+            customerObj = JSON.parse(customer);
+        }
+
+    let display = " ";
+    customerObj.forEach((element, index) => {
+        display += `
+        <li class="${index} customer-info" onclick="remove(this.class)">
+              <figure>
+                <img src="https://source.unsplash.com/random/150x150/?person" alt="Person">
+              </figure>
+              <ul>
+                <li>
+                  <span class="display-name">Name: ${element.nameTitle}</span>
+                </li>
+                <li>
+                  <span class="display-course">Course: ${element.courseTitle}</span>
+                </li>
+                <li>
+                  <span class="display-author">Author: ${element.authorTitle}</span>
+                </li>
+              </ul>
+            </li>
+        `;
+    });
+
+    let displaySection = document.querySelector('.main-display-list');
+    if(customerObj.length != 0) {
+        displaySection.innerHTML = display;
+    } else {
+        displaySection.innerHTML = "No customer information added";
+    }
+}
+
+//remove items function
+let remove = (index) => {
+    let customer = localStorage.getItem("customer");
+    if(customer == null) {
+        customerObj = [];
+    } else {
+            customerObj = JSON.parse(customer);
+        }
+customerObj.splice(index, 1);
+localStorage.setItem("customer", JSON.stringify(customerObj));
+displayCustomerInfo();
+    
+}
+
+displayCustomerInfo();
