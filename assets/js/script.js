@@ -63,3 +63,25 @@ let inputValue = (e) => {
         successMsg(author);
     }
 }
+
+//input field focusout function
+customerName.addEventListener('focusout', () => {
+    if(customerName.nextElementSibling.classList.contains('none')) {
+        customerName.nextElementSibling.classList.remove('none');
+    }
+    inputValue();
+})
+
+course.addEventListener('focusout', () => {
+    if(course.nextElementSibling.classList.contains('none')) {
+        course.nextElementSibling.classList.remove('none');
+    }
+    inputValue();
+})
+
+author.addEventListener('focusout', () => {
+    if(author.nextElementSibling.classList.contains('none')) {
+        author.nextElementSibling.classList.remove('none');
+    }
+    inputValue();
+})
