@@ -179,7 +179,30 @@ form {
 }
 
 .form-btn input:hover { background-color: #001337; }
+.main-display-list { display: flex; }
 
+.customer-info {
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  margin-left: 2%;
+}
+
+.customer-info:first-child { margin-left: 0; }
+.customer-info figure,
+.customer-info img { border-radius: 5px; }
+
+.customer-info ul { padding: 20px 10px; }
+
+.customer-info ul li {
+  margin-bottom: 6px;
+  display: block;
+}
+
+.customer-info li span {
+  font-size: 20px;
+  text-transform: capitalize;
+}
 
 
 
