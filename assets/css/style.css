@@ -165,6 +165,7 @@ form {
   visibility: visible;
 }
 
+.form-control .none { visibility: hidden; }
 .form-btn { text-align: center; }
 
 .form-btn input {
