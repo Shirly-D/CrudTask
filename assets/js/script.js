@@ -30,3 +30,36 @@ let successMsg = (input) => {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 })
+
+let inputValue = (e) => {
+    let error = false;
+    if(customerName.value == "") {
+        errorMsg(customerName, '*This field is required');
+        error = true;
+    } else if(!textLength.test(customerName.value)) {
+        errorMsg(customerName, 'Enter valid item');
+        error = true;
+    } else {
+        successMsg(customerName);
+    }
+
+    if(course.value == "") {
+        errorMsg(course, '*This field is required');
+        error = true;
+    } else if(!textLength.test(course.value)) {
+        errorMsg(course, 'Enter valid item');
+        error = true;
+    } else {
+        successMsg(course);
+    }
+
+    if(author.value == "") {
+        errorMsg(author, '*This field is required');
+        error = true;
+    } else if(!textLength.test(author.value)) {
+        errorMsg(author, 'Enter valid item');
+        error = true;
+    } else {
+        successMsg(author);
+    }
+}
