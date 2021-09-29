@@ -58,6 +58,7 @@ let inputValue = (e) => {
     } else {
         successMsg(author);
     }
+    return error;
 }
 
 //input field focusout function
@@ -95,6 +96,7 @@ author.addEventListener('focus', () => {
     author.nextElementSibling.className = 'none';
 })
 
+//submit trigger
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     if(!inputValue()) {
